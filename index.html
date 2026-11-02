@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#10152b">
+<title>ARWIN | Servicios inteligentes</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0b1020;color:white;font-family:Arial,sans-serif}
+header{padding:22px;background:#141c35;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:30px;font-weight:bold;color:#42d7f5;letter-spacing:3px}
+main{padding:20px;max-width:600px;margin:auto}
+h1{font-size:28px}
+p{color:#aab8d5;line-height:1.5}
+.card{background:#182443;border:1px solid #304064;padding:18px;border-radius:18px;margin:16px 0}
+.ai{background:linear-gradient(135deg,#49318a,#15395a)}
+button{border:0;border-radius:12px;padding:13px;background:linear-gradient(90deg,#42d7f5,#9471ff);font-weight:bold;color:#10152b;font-size:15px;cursor:pointer}
+input{width:100%;padding:14px;border-radius:12px;border:1px solid #435477;background:#0d152b;color:white;margin:10px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.category{background:#182443;color:white;border:1px solid #304064;text-align:left;padding:16px;border-radius:15px}
+.category span{font-size:25px;display:block;margin-bottom:8px}
+.small{font-size:12px;color:#aab8d5}
+nav{position:fixed;bottom:0;left:0;width:100%;background:#141c35;border-top:1px solid #304064;display:flex;justify-content:space-around;padding:15px 5px}
+nav button{background:none;color:white;padding:5px;font-size:12px}
+section{padding-bottom:80px}
+.hidden{display:none}
+#answer{white-space:pre-wrap;color:#d9e7ff}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="logo">ARWIN.</div>
+ <span>✦ IA</span>
+</header>
+
+<main>
+<section id="inicio">
+ <p>BIENVENIDO A ARWIN</p>
+ <h1>¿Qué necesitas hoy?</h1>
+ <p>Encuentra soluciones y servicios en un solo lugar.</p>
+
+ <div class="card ai">
+  <h2>✦ Tu asistente inteligente</h2>
+  <p>Cuéntame qué necesitas y te ayudaré a encontrar una solución.</p>
+  <button onclick="ir('asistente')">Hablar con ARWIN</button>
+ </div>
+
+ <h2>Explora nuestros servicios</h2>
+ <div class="grid">
+  <button class="category" onclick="buscar('Hogar')"><span>🏠</span>Hogar</button>
+  <button class="category" onclick="buscar('Vehículos')"><span>🚗</span>Vehículos</button>
+  <button class="category" onclick="buscar('Educación')"><span>📚</span>Educación</button>
+  <button class="category" onclick="buscar('Tecnología')"><span>💻</span>Tecnología</button>
+  <button class="category" onclick="buscar('Mascotas')"><span>🐾</span>Mascotas</button>
+  <button class="category" onclick="buscar('Negocios')"><span>💼</span>Negocios</button>
+ </div>
+ <div class="card">
+  <h3>¿Ofreces algún servicio?</h3>
+  <p>Conecta tu negocio con nuevos clientes.</p>
+  <button onclick="ir('proveedor')">Ofrecer mis servicios</button>
+ </div>
+</section>
+
+<section id="asistente" class="hidden">
+ <h1>✦ ARWIN IA</h1>
+ <p>Hola. Soy tu asistente. Cuéntame qué solución estás buscando.</p>
+ <input id="pregunta" placeholder="Escribe lo que necesitas...">
+ <button onclick="responder()">Enviar mensaje</button>
+ <div class="card"><p id="answer">Aquí aparecerá nuestra respuesta de demostración.</p></div>
+</section>
+
+<section id="proveedor" class="hidden">
+ <h1>Tu negocio en ARWIN</h1>
+ <p>Prepara tu perfil de proveedor.</p>
+ <input id="negocio" placeholder="Nombre de tu negocio">
+ <input id="servicio" placeholder="Servicio que ofreces">
+ <button onclick="publicar()">Guardar información</button>
+ <div class="card" id="resultado">Tu información aparecerá aquí.</div>
+</section>
+
+<section id="solicitudes" class="hidden">
+ <h1>Mis solicitudes</h1>
+ <p>En esta sección podrás consultar los servicios que solicites.</p>
+ <div class="card">Próximamente: gestión de reservas y servicios.</div>
+</section>
+
+</main>
+
+<nav>
+ <button onclick="ir('inicio')">⌂ Inicio</button>
+ <button onclick="ir('asistente')">✦ ARWIN IA</button>
+ <button onclick="ir('solicitudes')">▤ Solicitudes</button>
+ <button onclick="ir('proveedor')">◉ Proveedor</button>
+</nav>
+
+<script>
+function ir(id){
+ document.querySelectorAll('main section').forEach(s=>s.classList.add('hidden'));
+ document.getElementById(id).classList.remove('hidden');
+ window.scrollTo(0,0);
+}
+function buscar(categoria){
+ ir('asistente');
+ document.getElementById('pregunta').value='Necesito un servicio de '+categoria;
+ responder();
+}
+function responder(){
+ let p=document.getElementById('pregunta').value.trim();
+ if(!p){alert('Escribe qué necesitas.');return;}
+ document.getElementById('answer').textContent=
+ '¡Gracias por consultar a ARWIN!\n\nEntendemos que necesitas: '+p+
+ '.\n\nEn nuestra próxima versión conectaremos la inteligencia artificial para recomendar profesionales y servicios disponibles en tu ciudad.';
+}
+function publicar(){
+ let n=document.getElementById('negocio').value;
+ let s=document.getElementById('servicio').value;
+ if(!n||!s){alert('Completa los dos campos.');return;}
+ document.getElementById('resultado').textContent=
+ 'Perfil de demostración preparado: '+n+' — '+s;
+}
+</script>
+</body>
+</html>
